@@ -1,0 +1,67 @@
+@mixin list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin border-radius {
+  border-radius: 3px;
+}
+
+@mixin button {
+  &:hover {
+    background-color: darken($blue, 10%);
+  }
+
+  &:active {
+    background-color: darken($blue, 20%);
+  }
+
+  &:focus {
+    background-color: darken($blue, 12%);
+  }
+
+  &:disabled,
+  &--disabled {
+    background-color: $grey;
+    color: $deep-grey;
+
+    &:hover {
+      background-color: $grey;
+    }
+
+    &:active {
+      background-color: $grey;
+    }
+
+    &:focus {
+      background-color: $grey;
+    }
+  }
+
+  &--canсel {
+    background-color: $darken-grey;
+    color: $deep-grey;
+    border-color: $darken-grey;
+
+    &:hover {
+      background-color: darken($darken-grey, 10%);
+    }
+
+    &:active {
+      background-color: darken($darken-grey, 10%);
+    }
+
+    &:focus {
+      background-color: darken($darken-grey, 10%);
+    }
+  }
+}

@@ -1,0 +1,64 @@
+@font-face {
+  font-weight: 400;
+  font-family: "Open Sans";
+  font-style: normal;
+  src: url("../fonts/opensans.woff2") format("woff2"), url("../fonts/opensans.woff") format("woff");
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: "Open Sans";
+  font-style: normal;
+  src: url("../fonts/opensanssemibold.woff2") format("woff2"), url("../fonts/opensanssemibold.woff") format("woff");
+}
+
+@font-face {
+  font-weight: 700;
+  font-family: "Open Sans";
+  font-style: normal;
+  src: url("../fonts/opensansbold.woff2") format("woff2"), url("../fonts/opensansbold.woff") format("woff");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-size: 15px;
+  line-height: 24px;
+  font-family: $fonts;
+  background-color: #ffffff;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+.container {
+  width: 1400px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hide {
+  display: none !important; /* stylelint-disable-line declaration-no-important */
+}

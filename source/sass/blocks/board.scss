@@ -1,0 +1,40 @@
+.board {
+  position: relative;
+}
+
+.board__inner {
+  padding: 50px;
+}
+
+.board__title {
+  font-size: 70px;
+  text-transform: uppercase;
+  opacity: .1;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-top: 0;
+}
+
+.board__car {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.board__woman {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.board__alkohol {
+  position: absolute;
+  bottom: 0;
+  right: 208px;
+}
+
+.board__text {
+  color: $color1;
+  font-style: italic;
+  font-weight: 600;
+}
