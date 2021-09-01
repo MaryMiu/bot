@@ -120,7 +120,7 @@ __webpack_require__.r(__webpack_exports__);
 const Poetry = {
   MAN: 'Мудрости, достатка и харизмы<br>Вам не занимать в расцвете лет,<br>Я вам пожелаю оптимизма,<br>Чтобы жизнь вас берегла от бед,<br>Чтоб друзья любили и родные,<br>И каким бы ни был поворот,<br>За спиной всегда пусть будут крылья,<br>И душа пусть просится в полет!',
   COLLEAGUE: 'Хочу пожелать, чтоб все было отлично<br/>В бумажник отличную сумму наличных<br/>Отличных коллег на отличной работе<br/>На «пять» отдохнуть от работы в субботу<br/><br/>Различных вопросов, отличных решений<br/>С родными отличных тебе отношений,<br/>Здоровья отличного, и в жизни личной<br/>Пусть все у тебя будет лишь на «отлично»!',
-  PROGRAMMER: 'Желаю тебе отличного переноса 😉',
+  PROGRAMMER: '<code>var today = new Date();<br>if (today.toLocaleDateString() === "01.09.2021") {<br>&nbsp;alert("Саша, с Днём Рождения!")<br>}</code>',
   CHIEF: 'Здесь не будет стихов. Просто скажу, что у ты отличный руководитель. Честно-пречестно.'
 };
 
@@ -142,11 +142,23 @@ __webpack_require__.r(__webpack_exports__);
 
 const botui = new botui__WEBPACK_IMPORTED_MODULE_0___default.a('my-botui-app');
 const choice = {
-  name: 'Саша',
   car: null,
   alkohol: null,
   woman: null
 };
+let congratulations = [{
+  text: 'Мужчине',
+  value: 'MAN'
+}, {
+  text: 'Коллеге',
+  value: 'COLLEAGUE'
+}, {
+  text: 'Программисту',
+  value: 'PROGRAMMER'
+}, {
+  text: 'Начальнику',
+  value: 'CHIEF'
+}];
 botui.message.add({
   content: 'Дорогой Саша!'
 }).then(function () {
@@ -157,7 +169,7 @@ botui.message.add({
 }).then(function () {
   return botui.message.add({
     delay: 2000,
-    content: 'Но так как сегодня дел, мне нужна твоя помощь'
+    content: 'Но так как сегодня мало времени, мне нужна твоя помощь'
   });
 }).then(function () {
   return botui.message.add({
@@ -188,7 +200,7 @@ botui.message.add({
 const card = function () {
   botui.message.add({
     delay: 2000,
-    content: 'Сначала выбери тачку'
+    content: 'Сначала выбери машину'
   }).then(function () {
     return botui.action.button({
       delay: 2000,
@@ -264,23 +276,11 @@ const card = function () {
 const poetry = function () {
   botui.message.add({
     delay: 2000,
-    content: 'У меня тут коллекция'
+    content: 'Тут есть такие поздравления'
   }).then(function () {
     return botui.action.button({
       delay: 2000,
-      action: [{
-        text: 'Мужчине',
-        value: 'MAN'
-      }, {
-        text: 'Коллеге',
-        value: 'COLLEAGUE'
-      }, {
-        text: 'Программисту',
-        value: 'PROGRAMMER'
-      }, {
-        text: 'Начальнику',
-        value: 'CHIEF'
-      }]
+      action: congratulations
     });
   }).then(function (res) {
     let text = '';
@@ -288,18 +288,25 @@ const poetry = function () {
     switch (res.value) {
       case 'MAN':
         text = _const__WEBPACK_IMPORTED_MODULE_1__["Poetry"].MAN;
+        removeObjFromArray(congratulations, 'MAN');
         break;
 
       case 'COLLEAGUE':
         text = _const__WEBPACK_IMPORTED_MODULE_1__["Poetry"].COLLEAGUE;
+        removeObjFromArray(congratulations, 'COLLEAGUE');
         break;
 
       case 'PROGRAMMER':
         text = _const__WEBPACK_IMPORTED_MODULE_1__["Poetry"].PROGRAMMER;
+        setTimeout(() => {
+          alert('Саша, с Днём Рождения!');
+        }, 1000);
+        removeObjFromArray(congratulations, 'PROGRAMMER');
         break;
 
       case 'CHIEF':
         text = _const__WEBPACK_IMPORTED_MODULE_1__["Poetry"].CHIEF;
+        removeObjFromArray(congratulations, 'CHIEF');
         break;
 
       default:
@@ -308,12 +315,28 @@ const poetry = function () {
 
     const container = document.querySelector('.board__text');
     container.innerHTML = text;
-    return botui.message.add({
-      delay: 2000,
-      content: `Мои поздравления!`
-    });
+  }).then(function () {
+    if (congratulations.length > 0) {
+      poetry();
+    } else {
+      end();
+    }
   });
 };
+
+const end = function () {
+  botui.message.add({
+    delay: 2000,
+    content: `Мои поздравления!`
+  });
+};
+
+function removeObjFromArray(array, type) {
+  const current = array.find(it => it.value === type);
+  const indx = array.indexOf(current);
+  array.splice(indx, 1);
+  return array;
+}
 
 /***/ }),
 
