@@ -15,6 +15,8 @@ var named = require('vinyl-named');
 var notify = require("gulp-notify");
 var gulpif = require('gulp-if');
 var uglify = require('gulp-uglify-es').default;
+var ghpages = require('gh-pages');
+var del = require('del');
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
@@ -65,7 +67,6 @@ gulp.task('webpack', function () {
     .pipe(gulpif(!isDevelopment, gulp.dest('source/js/public/')))
 });
 
-
 gulp.task('css', function () {
   return gulp.src('source/sass/style.scss')
     .pipe(plumber())
@@ -84,6 +85,26 @@ gulp.task('css', function () {
     .pipe(server.stream());
 });
 
+gulp.task('clean', function () {
+  return del('build');
+});
+
+gulp.task('copy', function () {
+  return gulp.src([
+      'source/css/**',
+      'source/img/**',
+      'source/js/**',
+      'source/*.html',
+      'source/*.ico'
+    ], {
+      base: 'source'
+    })
+    .pipe(gulp.dest('build'));
+});
+
+gulp.task('ghpages', function () {
+  return ghpages.publish('build', function () {});
+});
 
 gulp.task('server', function () {
   server.init({
@@ -105,3 +126,7 @@ gulp.task('reload', function (done) {
 });
 
 gulp.task('start', gulp.series('css', 'webpack', 'server'));
+
+gulp.task('build', gulp.series('clean', 'copy', 'css', 'webpack'));
+
+gulp.task('publish', gulp.series('build', 'ghpages'));

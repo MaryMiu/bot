@@ -5,11 +5,24 @@ import {
 
 const botui = new BotUI('my-botui-app');
 const choice = {
-  name: 'Саша',
   car: null,
   alkohol: null,
   woman: null,
 };
+
+let congratulations = [{
+  text: 'Мужчине',
+  value: 'MAN'
+}, {
+  text: 'Коллеге',
+  value: 'COLLEAGUE'
+}, {
+  text: 'Программисту',
+  value: 'PROGRAMMER'
+}, {
+  text: 'Начальнику',
+  value: 'CHIEF'
+}];
 
 botui.message.add({
   content: 'Дорогой Саша!'
@@ -21,7 +34,7 @@ botui.message.add({
 }).then(function () {
   return botui.message.add({
     delay: 2000,
-    content: 'Но так как сегодня дел, мне нужна твоя помощь'
+    content: 'Но так как сегодня мало времени, мне нужна твоя помощь'
   });
 }).then(function () {
   return botui.message.add({
@@ -51,7 +64,7 @@ botui.message.add({
 const card = function () {
   botui.message.add({
     delay: 2000,
-    content: 'Сначала выбери тачку'
+    content: 'Сначала выбери машину'
   }).then(function () {
     return botui.action.button({
       delay: 2000,
@@ -133,24 +146,12 @@ const card = function () {
 const poetry = function () {
   botui.message.add({
       delay: 2000,
-      content: 'У меня тут коллекция'
+      content: 'Тут есть такие поздравления'
     })
     .then(function () {
       return botui.action.button({
         delay: 2000,
-        action: [{
-          text: 'Мужчине',
-          value: 'MAN'
-        }, {
-          text: 'Коллеге',
-          value: 'COLLEAGUE'
-        }, {
-          text: 'Программисту',
-          value: 'PROGRAMMER'
-        }, {
-          text: 'Начальнику',
-          value: 'CHIEF'
-        }]
+        action: congratulations
       });
     }).then(function (res) {
       let text = '';
@@ -158,15 +159,22 @@ const poetry = function () {
       switch (res.value) {
         case 'MAN':
           text = Poetry.MAN;
+          removeObjFromArray(congratulations, 'MAN');
           break;
         case 'COLLEAGUE':
           text = Poetry.COLLEAGUE;
+          removeObjFromArray(congratulations, 'COLLEAGUE');
           break;
         case 'PROGRAMMER':
           text = Poetry.PROGRAMMER;
+          setTimeout(() => {
+            alert('Саша, с Днём Рождения!');
+          }, 1000);
+          removeObjFromArray(congratulations, 'PROGRAMMER');
           break;
         case 'CHIEF':
           text = Poetry.CHIEF;
+          removeObjFromArray(congratulations, 'CHIEF');
           break;
 
         default:
@@ -177,9 +185,26 @@ const poetry = function () {
       container.innerHTML = text;
 
 
-      return botui.message.add({
-        delay: 2000,
-        content: `Мои поздравления!`
-      });
+    }).then(function () {
+      if (congratulations.length > 0) {
+        poetry();
+      } else {
+        end();
+      }
     });
 };
+
+const end = function () {
+  botui.message.add({
+    delay: 2000,
+    content: `Мои поздравления!`
+  });
+};
+
+
+function removeObjFromArray(array, type) {
+  const current = array.find((it) => it.value === type);
+  const indx = array.indexOf(current);
+  array.splice(indx, 1);
+  return array;
+}
