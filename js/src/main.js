@@ -3,6 +3,7 @@ import {
   Poetry
 } from './const';
 
+const balls = document.querySelector('.balls');
 const botui = new BotUI('my-botui-app');
 const choice = {
   car: null,
@@ -22,9 +23,13 @@ let congratulations = [{
 }, {
   text: 'Начальнику',
   value: 'CHIEF'
+}, {
+  text: 'А я уже всё прочитал',
+  value: 'END'
 }];
 
 botui.message.add({
+  delay: 2000,
   content: 'Дорогой Саша!'
 }).then(function () {
   return botui.message.add({
@@ -39,9 +44,10 @@ botui.message.add({
 }).then(function () {
   return botui.message.add({
     delay: 2000,
-    content: 'Оформим открытку твоей мечты?'
+    content: 'Оформим открытку твоей мечты? 😄'
   });
 }).then(function () {
+  showBalls();
   return botui.action.button({
     delay: 2000,
     action: [{
@@ -89,7 +95,7 @@ const card = function () {
 
     return botui.message.add({
       delay: 2000,
-      content: `Отлично. Теперь добавим девочку. Выбери:`
+      content: `Отлично. Блондинка или брюнетка?`
     });
   }).then(function () {
     return botui.action.button({
@@ -112,7 +118,7 @@ const card = function () {
 
     return botui.message.add({
       delay: 2000,
-      content: `Ок. Осталось добавить бухлишко`
+      content: `Осталось добавить бухлишко 🥂`
     });
   }).then(function () {
     return botui.action.button({
@@ -178,6 +184,7 @@ const poetry = function () {
           break;
 
         default:
+          congratulations = [];
           break;
       }
 
@@ -190,6 +197,9 @@ const poetry = function () {
         poetry();
       } else {
         end();
+        setTimeout(() => {
+          flyBalls();
+        }, 2000);
       }
     });
 };
@@ -207,4 +217,32 @@ function removeObjFromArray(array, type) {
   const indx = array.indexOf(current);
   array.splice(indx, 1);
   return array;
+}
+
+
+function showBalls() {
+
+  setTimeout(() => {
+    balls.children[0].classList.add('active');
+  }, 1000);
+
+  setTimeout(() => {
+    balls.children[1].classList.add('active');
+  }, 500);
+
+  setTimeout(() => {
+    balls.children[2].classList.add('active');
+  }, 100);
+
+  setTimeout(() => {
+    balls.children[3].classList.add('active');
+  }, 1200);
+
+  setTimeout(() => {
+    balls.children[4].classList.add('active');
+  }, 2000);
+}
+
+function flyBalls() {
+  Array.from(balls.children).forEach((ball) => ball.classList.add('up'));
 }

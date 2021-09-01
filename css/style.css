@@ -344,8 +344,8 @@ img {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  background: -webkit-gradient(linear, right top, left top, from(#F8F0FB), color-stop(50%, #F8F0FB), color-stop(50%, #211A1D), to(#211A1D));
-  background: linear-gradient(to left, #F8F0FB 0%, #F8F0FB 50%, #211A1D 50%, #211A1D 100%); }
+  background: -webkit-gradient(linear, right top, left top, from(#F8F0FB), color-stop(50%, #F8F0FB), color-stop(50%, transparent), to(transparent)), url("../../img/circle-blues.png");
+  background: linear-gradient(to left, #F8F0FB 0%, #F8F0FB 50%, transparent 50%, transparent 100%), url("../../img/circle-blues.png"); }
 
 .main__container {
   display: -webkit-box;
@@ -356,6 +356,7 @@ img {
 
 .main__chat {
   background-color: #211A1D;
+  background-image: url("../../img/circle-blues.png");
   -webkit-box-flex: 1;
       -ms-flex: 1 0 50%;
           flex: 1 0 50%; }
@@ -568,35 +569,35 @@ img {
   padding: 0;
   margin: 0; }
   .balls .balls__item:nth-child(1) {
-    background-image: url("../../img/001.png");
+    background-image: url("../img/001.png");
     width: 137px;
     height: 258px;
     display: block;
     top: 400px;
     left: -199px; }
   .balls .balls__item:nth-child(2) {
-    background-image: url("../../img/002.png");
+    background-image: url("../img/002.png");
     width: 80px;
     height: 154px;
     display: block;
     top: 21px;
     left: -56px; }
   .balls .balls__item:nth-child(3) {
-    background-image: url("../../img/003.png");
+    background-image: url("../img/003.png");
     width: 131px;
     height: 249px;
     display: block;
     top: -19px;
     left: calc(50% - 86px); }
   .balls .balls__item:nth-child(4) {
-    background-image: url("../../img/004.png");
+    background-image: url("../img/004.png");
     width: 239px;
     height: 459px;
     display: block;
     top: 300px;
     right: -158px; }
   .balls .balls__item:nth-child(5) {
-    background-image: url("../../img/005.png");
+    background-image: url("../img/005.png");
     width: 118px;
     height: 223px;
     display: block;
@@ -604,4 +605,67 @@ img {
     right: -177px; }
 
 .balls__item {
-  position: absolute; }
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transform: translateY(-50px);
+          transform: translateY(-50px);
+  -webkit-transition: .5s all linear;
+  transition: .5s all linear; }
+  .balls__item.active {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+    visibility: visible;
+    opacity: 1;
+    -webkit-animation: jello-horizontal 1.5s both;
+            animation: jello-horizontal 1.5s both; }
+  .balls__item.up {
+    -webkit-transition: 2s all linear;
+    transition: 2s all linear;
+    top: -500px !important; }
+
+@-webkit-keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1); }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1); }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1); }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1); }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1); }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1); } }
+
+@keyframes jello-horizontal {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1); }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1); }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1); }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1); }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1); }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1); }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1); } }
