@@ -327,7 +327,7 @@ const poetry = function () {
 const end = function () {
   botui.message.add({
     delay: 2000,
-    content: `Мои поздравления!`
+    content: `С Днём Рождения! Ура!`
   });
 };
 
